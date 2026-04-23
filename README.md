@@ -2,7 +2,7 @@
 
 A practical guide to managing your domain's DNS and enabling SSL/HTTPS through Cloudflare.
 
-> **Screenshots:** To add your own screenshots, create an `images/` folder next to this file and save your screenshots using the filenames referenced below (e.g., `images/01-add-domain.png`). They will appear automatically in the guide.
+> **Screenshots:** Create an `images/` folder next to this file and save your 5 screenshots using the filenames listed below. They will appear automatically in the guide.
 
 ---
 
@@ -43,29 +43,18 @@ Visitor → Cloudflare (DNS + SSL + Proxy) → Your Server
 2. Click **"Add a domain"**
 3. Enter your domain name (e.g., `example.com`) and click **Continue**
 
-   ![Add domain screen](images/01-add-domain.png)
-
 4. Choose a plan — the **Free plan** includes DNS, SSL, and basic protection
-
-   ![Plan selection](images/02-plan-selection.png)
-
 5. Cloudflare scans your existing DNS records and imports them
 6. Review the imported records, then click **Continue**
-
-   ![Imported DNS records review](images/03-imported-dns-records.png)
-
 7. Cloudflare gives you **two nameservers**, for example:
    ```
    ada.ns.cloudflare.com
    bob.ns.cloudflare.com
    ```
 
-   ![Nameservers screen](images/04-nameservers.png)
+   ![Nameservers screen](images/01-nameservers.png)
 
 8. Go to your domain registrar and replace the existing nameservers with Cloudflare's
-
-   ![Updating nameservers at registrar](images/05-registrar-nameservers.png)
-
 9. Click **Done** — propagation takes between a few minutes and 48 hours
 
 > **Tip:** You can check propagation status at [whatsmydns.net](https://whatsmydns.net)
@@ -94,9 +83,6 @@ These are the most common DNS record types you'll work with in Cloudflare:
 
 1. Go to your domain in the Cloudflare dashboard
 2. Click **DNS** → **Records** in the left sidebar
-
-   ![DNS Records sidebar](images/06-dns-sidebar.png)
-
 3. Click **Add record**
 4. Fill in the fields:
    - **Type** — select record type (A, CNAME, MX, etc.)
@@ -105,7 +91,7 @@ These are the most common DNS record types you'll work with in Cloudflare:
    - **Proxy status** — orange cloud (proxied) or grey cloud (DNS only)
    - **TTL** — how long DNS resolvers cache the record (Auto when proxied)
 
-   ![Add record form](images/07-add-record-form.png)
+   ![Add record form](images/02-add-record-form.png)
 
 5. Click **Save**
 
@@ -161,7 +147,7 @@ TTL:     Auto
 
 ### Proxy Status: Orange Cloud vs Grey Cloud
 
-![Orange cloud vs grey cloud proxy toggle](images/08-proxy-toggle.png)
+![Orange cloud vs grey cloud proxy toggle](images/03-proxy-toggle.png)
 
 | | Orange Cloud (Proxied) | Grey Cloud (DNS Only) |
 |---|---|---|
@@ -184,8 +170,6 @@ Cloudflare provides free SSL certificates automatically when you proxy traffic t
 1. In your Cloudflare dashboard, go to **SSL/TLS** → **Overview**
 2. Select the appropriate mode (see [SSL Modes](#ssl-modes-explained) below)
 
-   ![SSL/TLS mode selector](images/09-ssl-mode-selector.png)
-
 ### Step 2 — Enable Automatic HTTPS Rewrites
 
 1. Go to **SSL/TLS** → **Edge Certificates**
@@ -198,7 +182,7 @@ This rewrites mixed-content HTTP links on your page to HTTPS automatically.
 1. Still on **SSL/TLS** → **Edge Certificates**
 2. Toggle on **Always Use HTTPS**
 
-   ![Edge Certificates toggles](images/10-edge-certificates-toggles.png)
+   ![Edge Certificates toggles](images/04-edge-certificates-toggles.png)
 
 This redirects all HTTP visitors to HTTPS.
 
@@ -208,7 +192,7 @@ This redirects all HTTP visitors to HTTPS.
 
 Cloudflare offers four SSL/TLS encryption modes. Choose based on your server setup:
 
-![SSL mode options](images/11-ssl-modes.png)
+![SSL mode options](images/05-ssl-modes.png)
 
 ### Off
 - No encryption between visitor and Cloudflare, or Cloudflare and server
@@ -250,16 +234,12 @@ To ensure all traffic uses HTTPS:
 1. **SSL/TLS** → **Edge Certificates**
 2. Toggle **Always Use HTTPS** → On
 
-   ![Always Use HTTPS toggle](images/12-always-use-https.png)
-
 ### Method 2 — Page Rule (more control)
 1. Go to **Rules** → **Page Rules**
 2. Click **Create Page Rule**
 3. Set URL pattern: `http://example.com/*`
 4. Add setting: **Always Use HTTPS**
 5. Click **Save and Deploy**
-
-   ![Page Rule HTTPS setup](images/13-page-rule-https.png)
 
 ### Method 3 — Redirect Rule
 1. Go to **Rules** → **Redirect Rules**
@@ -268,8 +248,6 @@ To ensure all traffic uses HTTPS:
 4. Set redirect to: `https://${http.host}${http.request.uri.path}`
 5. Select **301 (Permanent Redirect)**
 6. Save and deploy
-
-   ![Redirect Rule setup](images/14-redirect-rule.png)
 
 ---
 
